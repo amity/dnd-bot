@@ -1,0 +1,11 @@
+{
+    "name": "spell-bot",
+    "version": "1.0.0",
+    "description": "DnD 5e Spell Bot",
+    "main": "bot.js",
+    "author": "soph-iest",
+    "dependencies": {
+        "discord.io": "https://github.com/woor/discord.io/tarball/gateway_v6",
+        "winston": "^3.1.0"
+    }
+}

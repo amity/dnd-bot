@@ -24,23 +24,31 @@ bot.on("ready", function(evt) {
 
 bot.on("message", function(user, userID, channelID, message, evt) {
   // TODO: refactor spell and monster out into functions that are called in main one
+  let response = "";
+  if (message.substring(0, 5) == "/help") {
+    response = `Hi! I'm here to help you play DnD.
+    Available commands:
+    \`/spell XXX\`: Prints details for spell of name XXX.
+    \`SecretDMcommand XXX\`: Prints details for monster of name XXX.
+    \`/help\`: Prints this help menu!
 
-  // Our bot needs to know if it will execute a command
-  // It will listen for messages that will start with `!`
+    Note that I won't work unless I'm being hosted.
+    My source code lives at https://github.com/soph-iest/dnd-bot.
+    `;
+  }
+
   if (message.substring(0, 6) == "/spell") {
-    const response = findSpell(message.substring(7));
-    bot.sendMessage({
-      to: channelID,
-      message: response
-    });
+    response = findSpell(message.substring(7));
   }
 
-  if (message.substring(0, 8) == "/monster") {
-    const monsterName = message.substring(9);
-    let myMonster = monsterData.find(monster => {
-      return monster.name == monsterName;
-    });
+  if (message.substring(0, 11) == "/DM monster") {
+    response = findMonster(message.substring(12));
   }
+
+  bot.sendMessage({
+    to: channelID,
+    message: response
+  });
 });
 
 function findSpell(inputString) {
@@ -87,7 +95,63 @@ function findSpell(inputString) {
 }
 
 function findMonster(inputString) {
-  let myMonster = monsterData.find(monster => {
+  let mon = monsterData.find(monster => {
     return monster.name == inputString;
   });
+
+  const monsterMessage = `Monster: ${mon.name} (${mon.alignment})
+  ${mon.size + mon.type}, ${mon.subtype}
+  ***Stats:***
+  ${mon.hit_points} HP, Armor Class ${mon.armor_class}, CR ${
+    mon.challenge_rating
+  }
+  Speed: ${mon.speed}    Stealth: ${mon.stealth}
+  **${mon.strength}** STR, **${mon.dexterity}** DEX, **${mon.constitution}** CON
+  **${mon.intelligence}** INT, **${mon.wisdom}** WIS, **${mon.charisma}** CHA
+  ${
+    mon.perception
+      ? `Perception: ${mon.perception}
+  `
+      : ""
+  }${mon.strength_save ? `STR Save: ${mon.strength_save},  ` : ""}${
+    mon.dexterity_save ? `DEX Save: ${mon.dexterity_save},  ` : ""
+  }${mon.constitution_save ? `CON Save: ${mon.constitution_save},  ` : ""}${
+    mon.intelligence_save ? `INT Save: ${mon.intelligence_save},  ` : ""
+  }${mon.wisdom_save ? `WIS Save: ${mon.wisdom_save},  ` : ""}${
+    mon.charisma_save ? `CHA Save: ${mon.charisma_save},  ` : ""
+  }
+  ***Traits:***
+  Weak to: ${mon.damage_vulnerabilities}
+  Resists: ${mon.damage_resistances}
+  Immune to: ${mon.damage_immunities} ${
+    mon.damage_immunities && mon.condition_immunities ? "and" : ""
+  } ${mon.condition_immunities}
+  Senses: ${mon.senses}
+  Languages: ${mon.languages}
+  **Abilities**: ${mon.special_abilities
+    .map(ability => {
+      return ability.name;
+    })
+    .toString()}
+  ${
+    mon.actions
+      ? "**Actions**: " +
+        mon.actions
+          .map(action => {
+            return action.name;
+          })
+          .toString()
+      : ""
+  }
+  ${
+    mon.legendary_actions
+      ? "**Legendary Actions**: " +
+        mon.legendary_actions.map(action => {
+          return action.name;
+        })
+      : ""
+  }
+  `;
+
+  return monsterMessage;
 }

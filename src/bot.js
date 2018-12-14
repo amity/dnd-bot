@@ -24,6 +24,8 @@ bot.on("ready", function(evt) {
 
 bot.on("message", function(user, userID, channelID, message, evt) {
   // TODO: refactor spell and monster out into functions that are called in main one
+  // TODO: monster ability/action query
+
   let response = "";
   if (message.substring(0, 5) == "/help") {
     response = `Hi! I'm here to help you play DnD.

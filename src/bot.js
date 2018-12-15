@@ -25,10 +25,10 @@ bot.on("ready", function(evt) {
 bot.on("message", function(user, userID, channelID, message, evt) {
   // TODO: refactor spell and monster out into functions that are called in main one
   // TODO: monster ability/action query
-
-  let response = "";
-  if (message.substring(0, 5) == "/help") {
-    response = `Hi! I'm here to help you play DnD.
+  try {
+    let response = "";
+    if (message.substring(0, 5) == "/help") {
+      response = `Hi! I'm here to help you play DnD.
     Available commands:
     \`/spell XXX\`: Prints details for spell of name XXX.
     \`/SecretDMcommand XXX\`: Prints details for monster of name XXX.
@@ -37,26 +37,32 @@ bot.on("message", function(user, userID, channelID, message, evt) {
     Note that I won't work unless I'm being hosted.
     My source code lives at https://github.com/soph-iest/dnd-bot.
     `;
-  }
+    }
 
-  if (message.substring(0, 6) == "/spell") {
-    response = findSpell(message.substring(7));
-  }
+    if (message.substring(0, 6) == "/spell") {
+      response = findSpell(message.substring(7));
+    }
 
-  if (message.substring(0, 11) == "/DM monster") {
-    response = findMonster(message.substring(12));
-  }
+    if (message.substring(0, 11) == "/DM monster") {
+      response = findMonster(message.substring(12));
+    }
 
-  bot.sendMessage({
-    to: channelID,
-    message: response
-  });
+    bot.sendMessage({
+      to: channelID,
+      message: response
+    });
+  } catch (err) {
+    console.error(err);
+  }
 });
 
 function findSpell(inputString) {
   let mySpell = spellData.find(spell => {
     return spell.name == inputString;
   });
+  if (!mySpell) {
+    return "Error: Spell not found.";
+  }
   let requirements;
   switch (mySpell.components) {
     case "V":

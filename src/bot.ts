@@ -1,7 +1,7 @@
 var Discord = require("discord.io");
 var logger = require("winston");
-var auth = require("../auth.json");
 
+var auth = require("./auth.json");
 var { help } = require("./help");
 var { findSpell } = require("./findSpell");
 var { findMonster } = require("./findMonster");
@@ -17,14 +17,20 @@ var bot = new Discord.Client({
   token: auth.token,
   autorun: true
 });
-bot.on("ready", function(evt) {
+bot.on("ready", function(evt: any) {
   logger.info("Connected");
   logger.info("Logged in as: ");
   logger.info(bot.username + " - (" + bot.id + ")");
 });
+console.log(findMonster("--full Adult Blue Dracolich"));
 
-bot.on("message", function(user, userID, channelID, message, evt) {
-  // TODO: refactor spell and monster out into functions that are called in main one
+bot.on("message", function(
+  user: string,
+  userID: number,
+  channelID: any,
+  message: string,
+  evt: any
+) {
   // TODO: monster ability/action query
   try {
     let response = "";

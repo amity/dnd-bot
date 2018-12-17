@@ -2,7 +2,7 @@
   "name": "spell-bot",
   "version": "1.0.0",
   "description": "DnD 5e Spell Bot",
-  "main": "src/bot.js",
+  "main": "built/bot.js",
   "author": "soph-iest",
   "dependencies": {
     "discord.io": "https://github.com/woor/discord.io/tarball/gateway_v6",

@@ -22,7 +22,6 @@ bot.on("ready", function(evt: any) {
   logger.info("Logged in as: ");
   logger.info(bot.username + " - (" + bot.id + ")");
 });
-console.log(findMonster("--full Adult Blue Dracolich"));
 
 bot.on("message", function(
   user: string,

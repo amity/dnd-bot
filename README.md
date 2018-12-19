@@ -10,6 +10,7 @@ Current commands:
 - `/spell (spellName)` will return information for the given spell.
 - `/DM monster (monsterName)` will return information for the given monster. Please note that in most circumstances, players should not necessarily have access to all of this information, so this command should be reserved for DMs by DMs. 😏
   - Optionally, `/DM monster --full (monsterName)` will also print all information about the monster's actions and abilities.
+- `/spawn (monsterName)`
 - `/help` displays a quick informational message.
 
 Planned expansions:

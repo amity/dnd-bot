@@ -47,7 +47,7 @@ export function findMonster(inputString: string) {
     Languages: ${mon.languages}
     ${
       mon.special_abilities
-        ? "***Abilities:***" +
+        ? "***Abilities:*** " +
           mon.special_abilities
             .map((ability: any) => {
               return full

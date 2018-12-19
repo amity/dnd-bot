@@ -4,6 +4,7 @@ export function findSpell(inputString: string) {
   let mySpell = spellData.find((spell: any) => {
     return spell.name == inputString;
   });
+  console.log(global.currentMonsters);
   if (!mySpell) {
     return "Error: Spell not found.";
   }

@@ -5,9 +5,7 @@
   "main": "built/bot.js",
   "author": "soph-iest",
   "scripts": {
-    "start": "node .",
-    "build": "tsc && cp src/**.json built/",
-    "postinstall": "npm run build"
+    "start": "tsc && cp src/**.json built/ && node ."
   },
   "dependencies": {
     "discord.io": "https://github.com/woor/discord.io/tarball/gateway_v6",

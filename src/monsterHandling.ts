@@ -34,6 +34,24 @@ export function spawnMonster(userID: string, inputString: string): string {
     .join("")}`;
 }
 
+export function getMonsters(userID: string, monsterType?: string): Monster[] {
+  // If monster type specified
+  if (
+    monsterType &&
+    global.currentMonsters.get(userID) &&
+    global.currentMonsters.get(userID)!.some((monster: Monster) => {
+      return monster.isType(monsterType);
+    })
+  ) {
+    return global.currentMonsters.get(userID)!.filter((monster: Monster) => {
+      return monster.isType(monsterType);
+    });
+  } else
+    return global.currentMonsters.get(userID) === undefined
+      ? new Array<Monster>()
+      : global.currentMonsters.get(userID)!;
+}
+
 export function damageMonster(userID: string, inputString: any): string {
   let inputs: Array<string> = inputString.split(" ");
   const damageTicks = inputs.shift();
@@ -66,27 +84,26 @@ export function damageMonster(userID: string, inputString: any): string {
   return resultsMessage;
 }
 
+export function statusMonster(userID: string, inputString: string): string {
+  let inputs: string[] = inputString.split(" ");
+  const status = inputs.shift();
+  let responseString = "";
+  for (let monsterName of inputs) {
+    let myMonster = global.currentMonsters.get(userID)!.find(monster => {
+      return monster.name == monsterName;
+    });
+    if (myMonster) {
+      responseString += myMonster.addStatus(status!);
+    } else
+      responseString += `${monsterName} not found.
+    `;
+  }
+  return responseString;
+}
+
 export function clearMonsters(userID: string): string {
   global.currentMonsters.delete(userID);
   return "Monsters cleared.";
-}
-
-export function getMonsters(userID: string, monsterType?: string): Monster[] {
-  // If monster type specified
-  if (
-    monsterType &&
-    global.currentMonsters.get(userID) &&
-    global.currentMonsters.get(userID)!.some((monster: Monster) => {
-      return monster.isType(monsterType);
-    })
-  ) {
-    return global.currentMonsters.get(userID)!.filter((monster: Monster) => {
-      return monster.isType(monsterType);
-    });
-  } else
-    return global.currentMonsters.get(userID) === undefined
-      ? new Array<Monster>()
-      : global.currentMonsters.get(userID)!;
 }
 
 export class Monster {

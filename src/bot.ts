@@ -11,12 +11,13 @@ var {
   spawnMonster,
   clearMonsters,
   damageMonster,
-  getMonsters
+  getMonsters,
+  statusMonster
 } = require("./monsterHandling");
+var { dmToggle } = require("./dmControls");
 
-// var global.currentMonsters:any = new Object();
-// declare var global.currentMonsters: Map<string, Monster[]>;
 global.currentMonsters = new Map<string, Array<Monster>>();
+global.dmSet = new Set<string>();
 
 // Configure logger settings
 logger.remove(logger.transports.Console);
@@ -24,6 +25,7 @@ logger.add(new logger.transports.Console(), {
   colorize: true
 });
 logger.level = "debug";
+
 // Initialize Discord Bot
 var bot = new Discord.Client({
   token: auth.token,
@@ -46,6 +48,11 @@ bot.on("message", function(
   userID = userID.toString();
 
   // General functions
+  if (message.substring(0, 6) == "/DM me") {
+    // /toggles the user
+    response = `${user} is ${dmToggle(userID)}`;
+  }
+
   if (message.substring(0, 5) == "/help") {
     // /help
     response = help();
@@ -124,9 +131,15 @@ bot.on("message", function(
     }
   }
 
-  // if (message.substring(0, 7) == "/status") {
-  //   response = statusMonster();
-  // }
+  if (message.substring(0, 7) == "/status") {
+    try {
+      response = statusMonster(userID, message.substring(8));
+    } catch (error) {
+      console.error(error);
+      response =
+        "Error adding status to given monster. Please make sure your query is formatted `/status statusName monsterName` where monsterName is the name (e.g. 'Goblin1') of a spawned monster.";
+    }
+  }
 
   bot.sendMessage({
     to: channelID,

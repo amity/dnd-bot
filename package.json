@@ -5,8 +5,9 @@
   "main": "built/bot.js",
   "author": "soph-iest",
   "scripts": {
-    "start": "tsc && cp src/**.json built/ && node .",
-    "build": "npm install && npm start"
+    "start": "node .",
+    "build": "tsc && cp src/**.json built/",
+    "postinstall": "npm run build"
   },
   "dependencies": {
     "@types/node": "^10.12.15",

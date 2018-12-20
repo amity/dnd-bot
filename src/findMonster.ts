@@ -11,6 +11,9 @@ export function findMonster(inputString: string) {
     return monster.name == inputString;
   });
 
+  // All of this is just formatting the message.
+  // Fields are included conditionally if the given monster has values for them.
+
   const monsterMessage: string = `Monster: ${mon.name} (${mon.alignment})
     ${mon.size + mon.type}, ${mon.subtype}
     ***Stats:***
@@ -44,7 +47,7 @@ export function findMonster(inputString: string) {
     Languages: ${mon.languages}
     ${
       mon.special_abilities
-        ? "***Abilities:***" +
+        ? "***Abilities:*** " +
           mon.special_abilities
             .map((ability: any) => {
               return full

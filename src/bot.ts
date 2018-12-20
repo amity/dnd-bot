@@ -73,13 +73,17 @@ bot.on("message", function(
     message.substring(0, 8) == "/monster" &&
     message.substring(0, 9) != "/monsters"
   ) {
-    // /DM monster monsterType
-    try {
-      response = findMonster(message.substring(9));
-    } catch (error) {
-      console.error(error);
-      response =
-        "Error: please make sure the monster you are looking for exists, and you have formatted your query `/monster xxxxx`";
+    // /monster monsterType
+    if (global.dmSet.has(userID)) {
+      try {
+        response = findMonster(message.substring(9));
+      } catch (error) {
+        console.error(error);
+        response =
+          "Error: Please make sure the monster you are looking for exists, and you have formatted your query `/monster xxxxx`";
+      }
+    } else {
+      response = `Error: Monster lookup is limited to DMs, and ${user} is not a DM. If you believe you are seeing this message incorrectly, you can become a DM with the \`/DM me\` command.`;
     }
   }
 

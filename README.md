@@ -11,9 +11,9 @@ Parentheses indicate the query inside should be replaced with user input; bracke
 
 ### Lookup:
 
-- `/DM me`: Toggles whether the user is marked as a DM, allowing them to manage and look up monsters. If the user is not marked as a DM, the only available commands are `/spell` and `/help`.
+- `/DM me`: Toggles whether the user is marked as a DM, allowing them to look up monsters.
 - `/spell (spellName)` will return information for the given spell.
-- `/monster [--full ](monsterType)` will return information for the given monster. Please note that in most circumstances, players should not necessarily have access to all of this information, so this command should typically be reserved for DMs' DMs.
+- `/monster [--full ](monsterType)` will return information for the given monster. Please note that in most circumstances, players should not necessarily have access to all of this information, so this command should typically be reserved for DMs' DMs. If the user is not marked as a DM, monster lookup will be unavailable.
   - Including `--full` will also print detailed information about the monster's actions and abilities.
 
 ### Instancing:
@@ -27,7 +27,7 @@ Parentheses indicate the query inside should be replaced with user input; bracke
 
 Planned expansions:
 
-- Managing location
 - Printing the DM-ness of all users in a channel (or just making them all non-DM but the one issuing the command.)
+- Character management
 - (Long shot): ASCII GUI for field representation
 - TBA

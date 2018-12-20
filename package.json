@@ -13,8 +13,6 @@
     "winston": "^3.1.0"
   },
   "devDependencies": {
-    "@types/node": "^10.12.18",
-    "tslint": "^5.9.1",
     "typescript": "3.2.2"
   }
 }

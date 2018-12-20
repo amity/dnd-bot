@@ -9,6 +9,7 @@
     "postinstall": "npm install -g typescript"
   },
   "dependencies": {
+    "@types/node": "^10.12.18",
     "discord.io": "https://github.com/woor/discord.io/tarball/gateway_v6",
     "winston": "^3.1.0"
   },

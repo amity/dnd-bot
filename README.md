@@ -5,6 +5,10 @@ Built with `npm start` (compiles the TS, copies all other files, and runs out of
 
 The bot can be DM'd, or called in any server which it has been granted access to.
 
+## To add to your server:
+Visit https://discordapp.com/oauth2/authorize?&client_id=523218118873710630&scope=bot&permissions=8 and authorize the bot to enter your server. That's it!
+You can also message it directly, rather than in a server.
+
 ## Current commands:
 
 Parentheses indicate the query inside should be replaced with user input; brackets indicate optional parameters. (The parentheses and brackets themselves should not be included in issued commands.)

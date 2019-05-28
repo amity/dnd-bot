@@ -774,6 +774,20 @@
     "class": "Sorcerer, Wizard"
   },
   {
+    "name": "Ceremony",
+    "desc": "You perform a special religious ceremony infused with magic. When you cast the spell, choose one of the following rites. *Atonement*: You touch one willing creature whose alignment has changed, and you make a DC 20 Wisdom (Insight) check. On a successful check, you restore the target to its original alignment. *Bless Water*: You touch one vial of water and cause it to become holy water. *Coming of Age*: You touch one humanoid who is a young adult. For the next 24 hours, whenever the target makes an ability check, it can roll a d4 and add the number rolled to the ability check. A creature can benefit from this rite only once. *Dedication*: You touch one humanoid who wishes to be dedicated to your god’s service. For the next 24 hours, whenever the target makes a saving throw, it can roll a d4 and add the number rolled to the save. A creature can benefit from this rite only once. *Funeral Rite*: You touch one corpse, and for the next 7 days, the target can’t become undead by any means short of a wish spell. *Wedding*: You touch adult humanoids willing to be bonded together in marriage. For the next 7 days, each target gains a +2 bonus to AC while they are within 30 feet of each other. A creature can benefit from this rite again only if widowed.",
+    "range": "Touch",
+    "components": "V, S, M",
+    "material": "25 gp worth of powdered silver, which the spell consumes",
+    "ritual": true,
+    "duration": "Instantaneous",
+    "concentration": false,
+    "casting_time": "1 hour",
+    "level": "1st-level",
+    "school": "Abjuration",
+    "class": "Cleric, Paladin"
+  },
+  {
     "name": "Chain Lightning",
     "desc": "You create a bolt of lightning that arcs toward a target of your choice that you can see within range. Three bolts then leap from that target to as many as three other targets, each of which must be within 30 feet of the first target. A target can be a creature or an object and can be targeted by only one of the bolts.A target must make a dexterity saving throw. The target takes 10d8 lightning damage on a failed save, or half as much damage on a successful one.",
     "higher_level": "When you cast this spell using a spell slot of 7th level or higher, one additional bolt leaps from the first target to another target for each slot level above 6th.",

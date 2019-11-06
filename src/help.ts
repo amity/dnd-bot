@@ -2,7 +2,7 @@ export function help() {
   return `Hi! I'm here to help you play DnD.
     Available commands:
     \`/spell XXX\`: Prints details for spell of name XXX.
-    \`/monster XXX\`: Prints details for monster of name XXX. Note that this command will only work if the user is listed as a DM.
+    \`/monster XXX\`: Prints details for monster of name XXX.
     \`/monsters\`: Prints all living monsters currently spawned by the user and their HPs.
     \`/spawn monsterType[*num]\`: Spawns one monster of type monsterName, or multiple by appending \`*num\`. (e.g. \`/spawn Goblin\`, or \`/spawn Goblin*3\`)
     \`/dmg num monsterName\`: Deals {num} damage to {monsterName}. Additional monsters to be damaged can be appended separated by a space. (e.g. \`/dmg 6 Goblin1 Goblin3\`). Monsters brought below 0 HP by damage are destroyed.

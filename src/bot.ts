@@ -14,7 +14,7 @@ var {
   getMonsters,
   statusMonster
 } = require("./monsterHandling");
-var { dmToggle } = require("./dmControls");
+// var { dmToggle } = require("./dmControls");
 
 global.currentMonsters = new Map<string, Array<Monster>>();
 global.dmSet = new Set<string>();
@@ -48,10 +48,10 @@ bot.on("message", function(
   userID = userID.toString();
 
   // General functions
-  if (message.substring(0, 6) == "/DM me") {
-    // /toggles the user
-    response = `${user} is ${dmToggle(userID)}`;
-  }
+  // if (message.substring(0, 6) == "/DM me") {
+  //   // /toggles the user
+  //   response = `${user} is ${dmToggle(userID)}`;
+  // }
 
   if (message.substring(0, 5) == "/help") {
     // /help
@@ -74,7 +74,7 @@ bot.on("message", function(
     message.substring(0, 9) != "/monsters"
   ) {
     // /monster monsterType
-    if (global.dmSet.has(userID)) {
+    // if (global.dmSet.has(userID)) {
       try {
         response = findMonster(message.substring(9));
       } catch (error) {
@@ -82,10 +82,9 @@ bot.on("message", function(
         response =
           "Error: Please make sure the monster you are looking for exists, and you have formatted your query `/monster xxxxx`";
       }
-    } else {
-      response = `Error: Monster lookup is limited to DMs, and ${user} is not a DM. If you believe you are seeing this message incorrectly, you can become a DM with the \`/DM me\` command.`;
+    // } else {
+    //   response = `Error: Monster lookup is limited to DMs, and ${user} is not a DM. If you believe you are seeing this message incorrectly, you can become a DM with the \`/DM me\` command.`;
     }
-  }
 
   // User-specific functions
   if (message.substring(0, 6) == "/spawn") {

@@ -12,9 +12,6 @@
     "@types/node": "^10.12.18",
     "discord.io": "https://github.com/woor/discord.io/tarball/gateway_v6",
     "typescript": "^3.7.2",
-    "winston": "^3.1.0"
-  },
-  "devDependencies": {
-    "typescript": "3.2.2"
+    "winston": "^3.2.1"
   }
 }

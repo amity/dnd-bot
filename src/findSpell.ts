@@ -2,7 +2,7 @@ var spellData: Array<any> = require("./spells.json");
 
 export function findSpell(inputString: string) {
   let mySpell = spellData.find((spell: any) => {
-    return spell.name == inputString;
+    return spell.name.toUpperCase() == inputString.toUpperCase();
   });
   console.log(global.currentMonsters);
   if (!mySpell) {

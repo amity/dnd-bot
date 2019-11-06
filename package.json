@@ -5,12 +5,16 @@
   "main": "built/bot.js",
   "author": "soph-iest",
   "scripts": {
-    "start": "tsc && cp src/**.json built/ && node ."
+    "start": "tsc && cp src/**.json built/ && node .",
+    "postinstall": "npm install -g typescript"
   },
   "dependencies": {
-    "@types/node": "^10.12.15",
+    "@types/node": "^10.12.18",
     "discord.io": "https://github.com/woor/discord.io/tarball/gateway_v6",
     "typescript": "^3.7.2",
     "winston": "^3.1.0"
+  },
+  "devDependencies": {
+    "typescript": "3.2.2"
   }
 }

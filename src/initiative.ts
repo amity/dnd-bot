@@ -1,5 +1,4 @@
 export function initiative(channelID: string, inputString: string): string {
-    // Parse input: "?number monsterName"
     const terms = inputString.split(' ');
     let currentMobs: Array<Monster>;
 

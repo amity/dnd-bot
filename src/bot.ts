@@ -146,9 +146,9 @@ bot.on("message", function(
   }
 
   if (message.substring(0, 11) == "/initiative") {
-    // /initative set    or /initative roll
+    // /initative   or   /initiative set   or  /initative roll
     try {
-      response = initiative(message.substring(12));
+      response = initiative(channelID, message.substring(12));
     } catch (error) {
       console.error(error);
       response =

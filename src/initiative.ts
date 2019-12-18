@@ -36,7 +36,7 @@ export function initiative(channelID: string, inputString: string): string {
 
     // Figure that people will be checking the list of monsters more often than adding, so this sorts on addition.
     const sortedMobs = currentMobs.filter((mob => mob.initiative != -100)).sort((m1, m2) => {
-        return m1.initiative > m2.initiative ? 1 : -1;
+        return m1.initiative < m2.initiative ? 1 : -1;
     });
     return `${sortedMobs.map(mob => mob.name + ": " + mob.initiative).join(`
 `)}`;

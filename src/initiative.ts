@@ -27,7 +27,7 @@ export function initiative(channelID: string, inputString: string): string {
             const existingMonster = currentMobs.find((mob) => mob.name == terms[i]);
             existingMonster ?
                 existingMonster.initiative = initiative :
-                currentMobs.push(new Monster(terms[i], undefined, initiative))
+                currentMobs.push(new Monster(terms[i], -1, initiative))
         }
 
         global.currentMonsters.set(channelID, currentMobs);
@@ -49,8 +49,8 @@ export class Monster {
     hp: number;
     status: string = "";
     initiative: number;
-    constructor(monsterType: string, monsterNum: number = 1, initiative: number = -100) {
-      this.name = monsterType + (monsterNum == undefined ? '' : monsterNum.toString());
+    constructor(monsterType: string, monsterNum: number, initiative: number = -100) {
+      this.name = monsterType + (monsterNum == -1 ? '' : monsterNum.toString());
       this.type = monsterType;
       this.initiative = initiative;
       this.hp = function (): number {

@@ -1,6 +1,6 @@
 var monsterData = require("./monsters.json");
 
-export function spawnMonster(userID: string, inputString: string): string {
+export function spawnMonster(channelID: string, inputString: string): string {
   // Parse input: "?number monsterName"
   let count = 1;
   if (!isNaN(Number(inputString.split("*")[1]))) {
@@ -10,56 +10,56 @@ export function spawnMonster(userID: string, inputString: string): string {
   }
 
   // Create monster set for user if it doesn't currently exist
-  if (global.currentMonsters.get(userID) === undefined) {
-    global.currentMonsters.set(userID, new Array<Monster>());
+  if (global.currentMonsters.get(channelID) === undefined) {
+    global.currentMonsters.set(channelID, new Array<Monster>());
   }
   // Increment ID number by currently existing monsters of specified type.
-  const currentMonsterOfType: number = getMonsters(userID, inputString).length;
+  const currentMonsterOfType: number = getMonsters(channelID, inputString).length;
   count += currentMonsterOfType;
 
   // Adds new monsters until provided count is reached.
   for (let i = 1 + currentMonsterOfType; i <= count; i++) {
-    global.currentMonsters.get(userID)!.push(new Monster(inputString, i));
+    global.currentMonsters.get(channelID)!.push(new Monster(inputString, i));
   }
   // Figure that people will be checking the list of monsters more often than adding, so this sorts on addition.
-  global.currentMonsters.get(userID)!.sort((m1, m2) => {
+  global.currentMonsters.get(channelID)!.sort((m1, m2) => {
     return m1.name > m2.name ? 1 : -1;
   });
   // Returns all monsters of the type the user has created.
   return `${global.currentMonsters
-    .get(userID)!
+    .get(channelID)!
     .filter((monster: Monster) => {
       return monster.isType(inputString);
     })
     .join("")}`;
 }
 
-export function getMonsters(userID: string, monsterType?: string): Monster[] {
+export function getMonsters(channelID: string, monsterType?: string): Monster[] {
   // If monster type specified
   if (
     monsterType &&
-    global.currentMonsters.get(userID) &&
-    global.currentMonsters.get(userID)!.some((monster: Monster) => {
+    global.currentMonsters.get(channelID) &&
+    global.currentMonsters.get(channelID)!.some((monster: Monster) => {
       return monster.isType(monsterType);
     })
   ) {
-    return global.currentMonsters.get(userID)!.filter((monster: Monster) => {
+    return global.currentMonsters.get(channelID)!.filter((monster: Monster) => {
       return monster.isType(monsterType);
     });
   } else
-    return global.currentMonsters.get(userID) === undefined
+    return global.currentMonsters.get(channelID) === undefined
       ? new Array<Monster>()
-      : global.currentMonsters.get(userID)!;
+      : global.currentMonsters.get(channelID)!;
 }
 
-export function damageMonster(userID: string, inputString: any): string {
+export function damageMonster(channelID: string, inputString: any): string {
   let inputs: Array<string> = inputString.split(" ");
   const damageTicks = inputs.shift();
   let resultsMessage = "";
   // Parse inputString into dmg and monstername(s)
   for (let monsterName of inputs) {
     let monsterDamageMessage = "";
-    let monster = global.currentMonsters.get(userID)!.find(
+    let monster = global.currentMonsters.get(channelID)!.find(
       (monster: Monster): boolean => {
         return monster.name == monsterName;
       }
@@ -71,8 +71,8 @@ export function damageMonster(userID: string, inputString: any): string {
       monsterDamageMessage = monster.damage(Number(damageTicks));
       if (monsterDamageMessage.includes("has been defeated")) {
         // Removes monster from array if it has been defeated.
-        global.currentMonsters.get(userID)!.splice(
-          global.currentMonsters.get(userID)!.findIndex((monster: Monster) => {
+        global.currentMonsters.get(channelID)!.splice(
+          global.currentMonsters.get(channelID)!.findIndex((monster: Monster) => {
             return monster.name == monsterName;
           }),
           1
@@ -84,12 +84,12 @@ export function damageMonster(userID: string, inputString: any): string {
   return resultsMessage;
 }
 
-export function statusMonster(userID: string, inputString: string): string {
+export function statusMonster(channelID: string, inputString: string): string {
   let inputs: string[] = inputString.split(" ");
   const status = inputs.shift();
   let responseString = "";
   for (let monsterName of inputs) {
-    let myMonster = global.currentMonsters.get(userID)!.find(monster => {
+    let myMonster = global.currentMonsters.get(channelID)!.find(monster => {
       return monster.name == monsterName;
     });
     if (myMonster) {
@@ -101,8 +101,8 @@ export function statusMonster(userID: string, inputString: string): string {
   return responseString;
 }
 
-export function clearMonsters(userID: string): string {
-  global.currentMonsters.delete(userID);
+export function clearMonsters(channelID: string): string {
+  global.currentMonsters.delete(channelID);
   return "Monsters cleared.";
 }
 
@@ -111,9 +111,11 @@ export class Monster {
   type: string;
   hp: number;
   status: string = "";
-  constructor(monsterType: string, monsterNum: number = 1) {
+  initiative: number;
+  constructor(monsterType: string, monsterNum: number = 1, initiative: number = -100) {
     this.name = monsterType + monsterNum.toString();
     this.type = monsterType;
+    this.initiative = initiative;
     this.hp = monsterData.find((monster: any) => {
       return monster.name == monsterType;
     }).hit_points;
@@ -121,7 +123,7 @@ export class Monster {
 
   toString(): string {
     return `${this.name}: ${this.hp} HP ${this.status}
-    `;
+`;
   }
 
   isType(monsterType: string): boolean {

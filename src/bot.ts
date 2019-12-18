@@ -14,6 +14,7 @@ var {
   getMonsters,
   statusMonster
 } = require("./monsterHandling");
+var { initiative } = require('./initiative');
 // var { dmToggle } = require("./dmControls");
 
 global.currentMonsters = new Map<string, Array<Monster>>();
@@ -45,7 +46,7 @@ bot.on("message", function(
   evt: any
 ) {
   let response = "";
-  userID = userID.toString();
+  channelID = channelID.toString();
 
   // General functions
   // if (message.substring(0, 6) == "/DM me") {
@@ -86,11 +87,11 @@ bot.on("message", function(
     //   response = `Error: Monster lookup is limited to DMs, and ${user} is not a DM. If you believe you are seeing this message incorrectly, you can become a DM with the \`/DM me\` command.`;
     }
 
-  // User-specific functions
+  // Channel-specific functions
   if (message.substring(0, 6) == "/spawn") {
     // /spawn monsterType(*number)
     try {
-      response = spawnMonster(userID, message.substring(7));
+      response = spawnMonster(channelID, message.substring(7));
     } catch (error) {
       console.error(error);
       response =
@@ -102,9 +103,9 @@ bot.on("message", function(
     // /monsters
     try {
       response =
-        getMonsters(userID).length == 0
+        getMonsters(channelID).length == 0
           ? "No monsters present."
-          : getMonsters(userID).join("");
+          : getMonsters(channelID).join("");
     } catch (error) {
       console.error(error);
       response =
@@ -115,7 +116,7 @@ bot.on("message", function(
   if (message.substring(0, 4) == "/dmg") {
     // /dmg num monsterName (monsterName2 ...)
     try {
-      response = damageMonster(userID, message.substring(5));
+      response = damageMonster(channelID, message.substring(5));
     } catch (error) {
       console.error(error);
       response =
@@ -126,7 +127,7 @@ bot.on("message", function(
   if (message.substring(0, 6) == "/clear") {
     // /clear
     try {
-      response = clearMonsters(userID);
+      response = clearMonsters(channelID);
     } catch (error) {
       console.error(error);
       response =
@@ -136,11 +137,22 @@ bot.on("message", function(
 
   if (message.substring(0, 7) == "/status") {
     try {
-      response = statusMonster(userID, message.substring(8));
+      response = statusMonster(channelID, message.substring(8));
     } catch (error) {
       console.error(error);
       response =
         "Error adding status to given monster. Please make sure your query is formatted `/status statusName monsterName` where monsterName is the name (e.g. 'Goblin1') of a spawned monster.";
+    }
+  }
+
+  if (message.substring(0, 11) == "/initiative") {
+    // /initative set    or /initative roll
+    try {
+      response = initiative(message.substring(12));
+    } catch (error) {
+      console.error(error);
+      response =
+        "Error: please make sure you have formatted your query like `/initiative roll myName -2 otherName 3 ...` or `/initiative set myName 18 otherName 6`";
     }
   }
 
@@ -155,9 +167,11 @@ class Monster {
   type: string;
   hp: number;
   status: string = "";
-  constructor(monsterType: string, monsterNum: number = 1) {
+  initiative: number;
+  constructor(monsterType: string, monsterNum: number = 1, initiative: number = -100) {
     this.name = monsterType + monsterNum.toString();
     this.type = monsterType;
+    this.initiative = initiative;
     this.hp = monsterData.find((monster: any) => {
       return monster.name == monsterType;
     }).hit_points;

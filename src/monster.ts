@@ -3,9 +3,11 @@ export class Monster {
   type: string;
   hp: number;
   status: string = "";
-  constructor(monsterType: string, monsterNum: number = 1) {
-    this.name = monsterType + monsterNum.toString();
+  initiative: number;
+  constructor(monsterType: string, monsterNum: number = 1, initiative: number = -100) {
+    this.name = monsterType + (monsterNum == undefined ? '' : monsterNum.toString());
     this.type = monsterType;
+    this.initiative = initiative;
     this.hp = monsterData.find((monster: any) => {
       return monster.name == monsterType;
     }).hit_points;

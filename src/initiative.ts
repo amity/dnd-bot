@@ -1,3 +1,5 @@
+const monsterData = require('./monsters.json');
+
 export function initiative(channelID: string, inputString: string): string {
     const terms = inputString.split(' ');
     let currentMobs: Array<Monster>;

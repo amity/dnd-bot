@@ -53,9 +53,10 @@ export class Monster {
       this.name = monsterType + (monsterNum == undefined ? '' : monsterNum.toString());
       this.type = monsterType;
       this.initiative = initiative;
-      this.hp = monsterData.find((monster: any) => {
-        return monster.name == monsterType;
-      }).hit_points;
+      this.hp = function (): number {
+          let mob = monsterData.find((monster: any) => { return monster.name == monsterType;})
+          return mob ? mob.hit_points : 0;
+        }()
     }
 
     toString(): string {

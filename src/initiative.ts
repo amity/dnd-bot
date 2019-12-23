@@ -22,7 +22,7 @@ export function initiative(channelID: string, inputString: string): string {
         // Handle each mob by setting initiative or creating new mob w/ specified init
         for(let i=1; i < terms.length; i += 2){
             const initiative = terms[0] == 'roll' ?
-                Math.floor(Math.random() * 21) + parseInt(terms[i+1]) :
+                Math.floor(Math.random() * 20 + 1) + (parseInt(terms[i+1]) || 0) :
                 parseInt(terms[i+1])
             const existingMonster = currentMobs.find((mob) => mob.name == terms[i]);
             existingMonster ?

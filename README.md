@@ -6,7 +6,7 @@ Built with `npm start` (compiles the TS, copies all other files, and runs out of
 The bot can be messaged directly, or called in any server which it has been granted access to.
 
 ## To add to your server:
-Visit https://discordapp.com/oauth2/authorize?&client_id=523218118873710630&scope=bot&permissions=8 and authorize the bot to enter your server. That's it!
+Visit https://discord.com/oauth2/authorize?&client_id=523218118873710630&scope=bot&permissions=8 and authorize the bot to enter your server. That's it!
 You can also message it directly, rather than in a server.
 
 ## Current commands:

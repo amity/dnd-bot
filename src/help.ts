@@ -16,7 +16,7 @@ export function help() {
     - \`/clear\`: Clears all monsters spawned by the player (and all initiatives).
     - \`/help\`: Prints this help menu!
 
-    Want to add me to a server you mod? Invite me at https://discordapp.com/oauth2/authorize?&client_id=523218118873710630&scope=bot&permissions=8.
+    Want to add me to a server you mod? Invite me at https://discord.com/oauth2/authorize?&client_id=523218118873710630&scope=bot&permissions=8.
     Note that if I appear offline, I am under maintenance. Thanks for your patience!
     My source code lives at https://github.com/soph-iest/dnd-bot.
     `;

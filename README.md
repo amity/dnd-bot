@@ -1,5 +1,9 @@
 # DnD Bot
 
+### UPDATE: With Discord sunsetting Gateway v5, the Discord.io library this bot is built on is no longer functioning. As a result, the bot has been deprecated. Thank you for using SpellBot!
+
+---
+
 A simple bot to help players and DMs with managing 5e DnD games.
 Built with `npm start` (compiles the TS, copies all other files, and runs out of `/built` destination folder), but users should interact with it as a Discord bot, which can be added to your server by following the instructions below.
 

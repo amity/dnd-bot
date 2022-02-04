@@ -1,6 +1,6 @@
 # DnD Bot
 
-### UPDATE: With Discord sunsetting Gateway v5, the Discord.io library this bot is built on is no longer functioning. As a result, the bot has been deprecated. Thank you for using SpellBot!
+### UPDATE: With Discord sunsetting Gateway v5, the Discord.io library this bot is built on is no longer functioning, and cannot be revived without refactoring to a different core library. As a result, the bot has been deprecated for the time being. Thank you for using SpellBot!
 
 ---
 

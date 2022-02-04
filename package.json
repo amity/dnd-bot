@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@types/node": "^10.12.18",
-    "discord.io": "https://github.com/woor/discord.io/tarball/gateway_v6",
+    "discord.io": "^2.5.3",
     "typescript": "^3.7.2",
     "winston": "^3.2.1"
   }
